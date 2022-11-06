@@ -5,7 +5,7 @@
   let bar = confirm('Confirm or deny');
   console.log(foo, bar);
   let activeUsers=document.getElementById('active-users');
-  var socket = io('http://localhost:3000');
+  var socket = io('https://cn-whiteboard-app.herokuapp.com');
   var canvas = document.getElementsByClassName('whiteboard')[0];
   var colors = document.getElementsByClassName('color');
   var context = canvas.getContext('2d');
