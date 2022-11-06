@@ -9,7 +9,6 @@ const io = require('socket.io')(http,{
   allowEIO3: true
 });
 const port = process.env.PORT || 3000;
-const mongoose=require('mongoose');
 app.use(express.static(__dirname + '/public'));
 let users=[];
 function onConnection(socket){
