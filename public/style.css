@@ -37,6 +37,18 @@ html, body {
   width: 48px;
 }
 
+#currently{
+  position: fixed;
+  right: 0px;
+  width: 200px;
+}
+#active-users{
+  width: 200px;
+  position: fixed;
+  right: 0px;
+  bottom: 0px;
+  height: max-content;
+}
 .color.black { background-color: black; }
 .color.red { background-color: red; }
 .color.green { background-color: green; }

@@ -1,17 +1,29 @@
 'use strict';
 
 (function() {
-
-  var socket = io();
+  let foo = prompt('Type here');
+  let bar = confirm('Confirm or deny');
+  console.log(foo, bar);
+  let activeUsers=document.getElementById('active-users');
+  var socket = io('http://localhost:3000');
   var canvas = document.getElementsByClassName('whiteboard')[0];
   var colors = document.getElementsByClassName('color');
   var context = canvas.getContext('2d');
-
+  socket.emit('user-connected',{user:foo});
   var current = {
     color: 'black'
   };
   var drawing = false;
-
+  socket.on('user-connected',(data)=>{
+    console.log("emitted");
+   console.log(data);
+    let html='<h2>Active Users:-</h2>';
+    data.users.forEach(item=>{
+      html+=`
+      <li>${item}</li>`
+    });
+    activeUsers.innerHTML=html;
+  })
   canvas.addEventListener('mousedown', onMouseDown, false);
   canvas.addEventListener('mouseup', onMouseUp, false);
   canvas.addEventListener('mouseout', onMouseUp, false);
@@ -39,13 +51,14 @@
     if (!emit) { return; }
     var w = canvas.width;
     var h = canvas.height;
-
+    document.getElementById('name').innerHTML=foo;
     socket.emit('drawing', {
       x0: x0 / w,
       y0: y0 / h,
       x1: x1 / w,
       y1: y1 / h,
-      color: color
+      color: color,
+      user:foo
     });
   }
 
@@ -84,10 +97,11 @@
       }
     };
   }
-
+  
   function onDrawingEvent(data){
     var w = canvas.width;
     var h = canvas.height;
+    document.getElementById('name').innerHTML=data.user;
     drawLine(data.x0 * w, data.y0 * h, data.x1 * w, data.y1 * h, data.color);
   }
 
