@@ -19,8 +19,16 @@
    console.log(data);
     let html='<h2>Active Users:-</h2>';
     data.users.forEach(item=>{
-      html+=`
+      if(item===foo)
+      {
+        html+=`
+        <li>${item} (me)</li>`
+      }
+      else{
+        html+=`
       <li>${item}</li>`
+      }
+      
     });
     activeUsers.innerHTML=html;
   })
